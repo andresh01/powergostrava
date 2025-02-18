@@ -123,3 +123,8 @@ app.get('/api/segmentInfo', async (req, res) => {
 app.listen(port, () => {
     console.log(`Servidor corriendo en http://localhost:${port}`);
 });
+
+app.get("/ping", (req, res) => {
+    res.send("OK");
+});
+
