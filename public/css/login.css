@@ -1,0 +1,39 @@
+body {
+    display: flex;
+    font-family: Arial, sans-serif;
+    background-color: #494343;
+    justify-content: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 60%;
+    height: 160px;
+    margin-top: 50%;
+    background-color: rgb(0, 0, 0);
+    color: #f4f4f4;
+}
+
+.container h1 {
+    padding: 20px;
+}
+
+.boton {
+    padding: 10px 20px;
+    background-color: #fc5200;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 15px;
+}
+
+
+.hidden {
+    display: none;
+}
+
