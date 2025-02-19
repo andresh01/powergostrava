@@ -77,7 +77,7 @@ async function infoSegmento(id) {
   try {
     const response = await fetch(`/api/segmentInfo?id=${id}`);
     const result = await response.json();
-    if (result.status_code === 401) {
+    if (result.status_code === 401 || result.status_code === 500) {
       window.location = "index.html";
     }
     elevation_gain = parseInt(result.elevation_high - result.elevation_low);
