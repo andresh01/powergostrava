@@ -53,6 +53,18 @@ html {
     background-color: #cc6d00;
 }
 
+.changePage {
+    /* margin: 10px; */
+    border-radius: 5px;
+    padding: 5px;
+    color: #cc6d00;
+    /* box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); */
+}
+.changePage:hover {
+    background-color: #c58c11;
+    color: #ffffff;
+}
+
 @media only screen and (max-width: 600px) {
     .tableSegments button {
         text-align: start;

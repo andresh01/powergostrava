@@ -76,11 +76,12 @@ app.get('/api/userSegmentsStarred', async (req, res) => {
     if (!accessToken) {
         return res.status(401).json({ error: 'Usuario no autenticado' });
     }
-
     try {
-        
+        var { page }= req.query;
+        var { per_page } = req.query;
+
         // Solicitud para obtener los segmentos favoritos
-        const starredSegmentsResponse = await axios.get('https://www.strava.com/api/v3/segments/starred?page=1&per_page=80', {
+        const starredSegmentsResponse = await axios.get(`https://www.strava.com/api/v3/segments/starred?page=${page}&per_page=${per_page}`, {
             headers: {
                 Authorization: `Bearer ${accessToken}`
             }

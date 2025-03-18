@@ -1,12 +1,22 @@
 var weight = 0;
 var elevation_gain = 0;
 var average_grade = 0;
+var page = 1;
+var per_page = 30;
 
 // Cargar los datos del usuario al cargar la página
 document.addEventListener("DOMContentLoaded", function () {
   cargarDatosUsuario();
 });
 
+document.getElementById("nextPage").addEventListener("click", function () {
+  document.querySelector(".tableSegments").innerHTML = "";
+  cargarSegmentosFavoritos(page + 1, per_page);
+});
+document.getElementById("previousPage").addEventListener("click", function () {
+  document.querySelector(".tableSegments").innerHTML = "";
+  cargarSegmentosFavoritos(page - 1, per_page);
+});
 // Función para cargar la información del usuario
 async function cargarDatosUsuario() {
   try {
@@ -34,17 +44,27 @@ async function cargarDatosUsuario() {
 
     let imgProfileUser = document.getElementById("picture");
     imgProfileUser.src = result.profile;
-    cargarSegmentosFavoritos();
+    cargarSegmentosFavoritos(page, per_page);
   } catch (error) {
     window.location = "index.html";
     console.error("Error al cargar la información del usuario:", error);
   }
 }
 
-async function cargarSegmentosFavoritos() {
+async function cargarSegmentosFavoritos(pag, per_page) {
+  page = pag;
   try {
-    const response = await fetch("/api/userSegmentsStarred");
+    const response = await fetch(
+      `/api/userSegmentsStarred?page=${pag}&per_page=${per_page}`
+    );
     const result = await response.json();
+
+    if (result.length == per_page) {
+      document.getElementById("nextPage").style.display = "block";
+    } else document.getElementById("nextPage").style.display = "none";
+    if (page > 1) {
+      document.getElementById("previousPage").style.display = "block";
+    } else document.getElementById("previousPage").style.display = "none";
 
     var table = document.querySelector(".tableSegments");
     result.forEach((value) => {
@@ -80,6 +100,7 @@ async function infoSegmento(id) {
     if (result.status_code === 401 || result.status_code === 500) {
       window.location = "index.html";
     }
+
     elevation_gain = parseInt(result.elevation_high - result.elevation_low);
     average_grade = result.average_grade;
     pr = secondsToString(result.athlete_segment_stats.pr_elapsed_time);
@@ -158,14 +179,16 @@ function segmentTime() {
   let wkg = document.getElementById("valw_kg").value || 0;
   let factor_grado = 2 + average_grade / 10;
   w = parseFloat(wkg) * weight;
-  let timeminutes = wkg > 0 ? (parseInt(elevation_gain) * 60) / (wkg * factor_grado * 100) : 0;
-  
-  let hour = parseInt(timeminutes/60);
-  let minutes = parseInt(timeminutes%60);
-  console.log(timeminutes)
-  
-  let vam = timeminutes == 0 ? 0 : (elevation_gain / (timeminutes / 60)).toFixed(0);
-  
+  let timeminutes =
+    wkg > 0 ? (parseInt(elevation_gain) * 60) / (wkg * factor_grado * 100) : 0;
+
+  let hour = parseInt(timeminutes / 60);
+  let minutes = parseInt(timeminutes % 60);
+  console.log(timeminutes);
+
+  let vam =
+    timeminutes == 0 ? 0 : (elevation_gain / (timeminutes / 60)).toFixed(0);
+
   document.getElementById("hour").value = hour;
   document.getElementById("minutes").value = minutes;
   document.getElementById("watts").innerHTML = w.toFixed(1);
