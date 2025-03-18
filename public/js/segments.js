@@ -150,6 +150,9 @@ async function infoSegmento(id) {
     minutes.addEventListener("input", function () {
       watts();
     });
+
+    // Enfocar el input de minutes
+    minutes.focus();
     watts();
   } catch (error) {
     console.error("Error al cargar la información del segmento:", error);
