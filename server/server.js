@@ -11,6 +11,22 @@ var accessToken = '';
 // Servir los archivos estáticos (HTML, CSS, JS) desde la carpeta 'public'
 app.use(express.static(path.join(__dirname, '../public')));
 
+// Función para renovar el access_token
+async function refreshAccessToken() {
+    try {
+        const response = await axios.post('https://www.strava.com/oauth/token', {
+            client_id: process.env.CLIENT_ID,
+            client_secret: process.env.CLIENT_SECRET,
+            refresh_token: refreshToken,
+            grant_type: 'refresh_token'
+        });
+        accessToken = response.data.access_token;
+        refreshToken = response.data.refresh_token; // Actualiza el refresh_token si es necesario
+    } catch (error) {
+        console.error('Error al renovar el token de acceso:', error);
+    }
+}
+
 // Ruta para iniciar el proceso de autenticación con Strava
 app.get('/auth/strava', (req, res) => {
     const authUrl = `https://www.strava.com/oauth/authorize?client_id=${process.env.CLIENT_ID}&response_type=code&redirect_uri=${process.env.REDIRECT_URI}&scope=read,activity:read_all`;
@@ -31,6 +47,7 @@ app.get('/auth/callback', async (req, res) => {
             code: code
         });
         accessToken = tokenResponse.data.access_token;
+        refreshToken = tokenResponse.data.refresh_token; // Guarda el refresh_token
         
         // Guardar el token de acceso en la sesión del usuario
         //req.session.accessToken = accessToken;
@@ -50,7 +67,6 @@ app.get('/api/userinfo', async (req, res) => {
     //const accessToken = req.session.accessToken;
 
     if (!accessToken) {
-        
         return res.status(401).json({ error: 'Usuario no autenticado' });
     }
 
@@ -67,6 +83,11 @@ app.get('/api/userinfo', async (req, res) => {
             userInfoResponse.data
         );
     } catch (error) {
+        if (error.response && error.response.status === 401) {
+            // Token expirado, intentar renovarlo
+            await refreshAccessToken();
+            return res.redirect('/api/userinfo'); // Reintentar la solicitud
+        }
         res.status(500).json({ error: 'Error al obtener la información' });
     }
 });
@@ -117,6 +138,11 @@ app.get('/api/segmentInfo', async (req, res) => {
             oneStarredSegmentResponse.data
         );
     } catch (error) {
+        if (error.response && error.response.status === 401) {
+            // Token expirado, intentar renovarlo
+            await refreshAccessToken();
+            return res.redirect(`/api/segmentInfo?id=${id}`); // Reintentar la solicitud
+        }
         res.status(500).json({ error: 'Error al obtener la información' });
     }
 });
