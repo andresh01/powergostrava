@@ -9,9 +9,26 @@ html {
 
 .header_container {
     display: flex;
-    font-size: 20px;
+    font-size: 15px;
     line-height: 25px;
     justify-content: space-evenly;
+}
+
+.userPicture {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+.userInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.icon{
+    text-align: right;
 }
 
 .header_container ul {

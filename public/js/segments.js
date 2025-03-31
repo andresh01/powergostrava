@@ -22,7 +22,10 @@ async function cargarDatosUsuario() {
   try {
     const response = await fetch("/api/userinfo");
     const result = await response.json();
-
+    
+    let icon = document.getElementById("icon_link");
+    icon.setAttribute('href', `https://strava.com/athletes/${result.id}` );
+    
     // Mostrar la información del usuario
     weight = result.weight;
 
@@ -46,7 +49,7 @@ async function cargarDatosUsuario() {
     imgProfileUser.src = result.profile;
     cargarSegmentosFavoritos(page, per_page);
   } catch (error) {
-    window.location = "index.html";
+    //window.location = "index.html";
     console.error("Error al cargar la información del usuario:", error);
   }
 }
