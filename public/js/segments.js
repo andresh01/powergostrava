@@ -17,6 +17,12 @@ document.getElementById("previousPage").addEventListener("click", function () {
   document.querySelector(".tableSegments").innerHTML = "";
   cargarSegmentosFavoritos(page - 1, per_page);
 });
+
+document.getElementById('logoutButton').addEventListener('click', () => {
+  window.location.href = '/logout'; // Redirigir a la ruta de cierre de sesión
+});
+
+
 // Función para cargar la información del usuario
 async function cargarDatosUsuario() {
   try {

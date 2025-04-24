@@ -149,6 +149,17 @@ app.get('/api/segmentInfo', async (req, res) => {
     }
 });
 
+// Ruta para cerrar sesión
+app.get('/logout', (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            console.error('Error al cerrar sesión:', err);
+            return res.status(500).send('Error al cerrar sesión.');
+        }
+        res.redirect('/index.html'); // Redirigir a la página de inicio
+    });
+});
+
 app.listen(port, () => {
     console.log(`Servidor corriendo en http://localhost:${port}`);
 });
