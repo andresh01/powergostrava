@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,22 +8,27 @@
     <link rel="shortcut icon" href="./img/mountain_orange.png">
     <link rel="stylesheet" href="./css/user.css">
 </head>
+
 <body>
     <header class="header">
         <div class="header_container">
             <div class="userPicture">
-                <img alt="profile" id="picture" >
+                <img alt="profile" id="picture">
             </div>
             <div class="userInfo">
                 <div class="divName">
                     <h2 id="userName"><!-- javascript --></h2>
                 </div>
-                <div id="userList" >
+                <div id="userList">
                     <!-- javascript -->
                 </div>
                 <div class="icon">
-                    <a id="icon_link" class="strava-badge- strava-badge-follow" target="_blank"><img src="//badges.strava.com/echelon-sprite-48.png" alt="Strava" /></a>
+                    <a id="icon_link" class="strava-badge- strava-badge-follow" target="_blank"><img
+                            src="//badges.strava.com/echelon-sprite-48.png" alt="Strava" /></a>
                 </div>
+                <!-- <div>
+                    <button style="border-style: none; " id="logoutButton">Cerrar Sesión</button>
+                </div> -->
             </div>
         </div>
     </header>
@@ -31,14 +37,14 @@
             <h3>Segmentos Favoritos</h3>
             <div class="containerTable">
                 <table class="tableSegments">
-                    
+
                 </table>
             </div>
             <div style="display: flex; justify-content: center; justify-content: space-around;">
                 <a id="previousPage" class="changePage" style="display: none;">Atras</a>
                 <a id="nextPage" class="changePage" style="display: none;">Siguiente</a>
             </div>
-            
+
             <!-- <select name="climbs" id="climbs" style="width: 200px;">
                 <option value="">Seleccione</option>
             </select> -->
@@ -51,44 +57,63 @@
                     </ul>
                 </div>
                 <div class="containerProfile">
-                    <img alt="" id="profile" >
+                    <img alt="" id="profile">
                 </div>
             </div>
             <div id="info">
                 <div id="datoTime">
-                    <div><h2>Tiempo a subir el puerto:</h2></div>
+                    <div >
+                        <h2 style="margin: 10px 0px 0px 0px;">Tiempo objetivo:</h2>
+                    </div>
                     <div id="timeContainer">
-                        <div>
-                            <p>Hora: <input type="number" min="0" id="hour" value="" placeholder="0"></p>
-                        </div>
-                        <div>
-                            <p>Minutos: <input type="number" min="0" id="minutes"></p>
-                        </div>
+                        <span><input class="inp_timeObj" type="text" value="hh">:<input class="inp_timeObj" type="text" value="mm"></span>
+                        <span><input type="number" min="0" id="hour" value="" placeholder="0"><span style="font-size:20px;">:</span><input type="number" min="0" id="minutes"></span>
                     </div>
                 </div>
                 <div id="datoW_kg">
-                    <div><h2>w/kg: <input type="text" id="valw_kg" value=""></h2></div>
+                    <div>
+                        <h2>w/kg: <input type="text" id="valw_kg" value=""></h2>
+                    </div>
                 </div>
                 <div id="datoW">
-                    <div><h2>watts: <span id="watts"> </span></h2></div>
+                    <div>
+                        <h2>watts: <span id="watts"> </span></h2>
+                    </div>
                 </div>
                 <div id="datoVam">
-                    <div><h2>vam: <span id="vam"> </span></h2></div>
+                    <div>
+                        <h2>vam: <span id="vam"> </span></h2>
+                    </div>
                 </div>
             </div>
             <div>
 
             </div>
         </div>
-       
+
     </main>
     <script src="js/segments.js"></script>
 </body>
+
 </html>
 <style>
-    .strava-badge- { display: inline-block; height: 48px; }
-    .strava-badge- img { visibility: hidden; height: 48px; }
-    .strava-badge-:hover { background-position: 0 -63px; }
-    .strava-badge-follow { height: 48px; width: 48px; background: url(//badges.strava.com/echelon-sprite-48.png) no-repeat 0 0; }
-  </style>
-  
+    .strava-badge- {
+        display: inline-block;
+        height: 48px;
+    }
+
+    .strava-badge- img {
+        visibility: hidden;
+        height: 48px;
+    }
+
+    .strava-badge-:hover {
+        background-position: 0 -63px;
+    }
+
+    .strava-badge-follow {
+        height: 48px;
+        width: 48px;
+        background: url(//badges.strava.com/echelon-sprite-48.png) no-repeat 0 0;
+    }
+</style>

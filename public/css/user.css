@@ -183,6 +183,13 @@ html {
 }
 #timeContainer {
     display: flex;
+    flex-direction: column;
+}
+
+.inp_timeObj {
+   background-color: transparent; 
+   text-align: center; 
+   color: #ffffff;
 }
 
 #datoW_kg input{

@@ -156,6 +156,25 @@ app.get("/api/segmentInfo", async (req, res) => {
   }
 });
 
+// Ruta para cerrar sesión
+app.get("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error("Error al cerrar sesión:", err);
+    }
+    // Limpia la cookie
+    res.clearCookie("connect.sid");
+
+     // Redirigir primero al logout de Strava
+     //res.redirect('https://www.strava.com/logout');
+
+     setTimeout(() => {
+       // Luego redirigir a la página de inicio
+       res.redirect("/index.html");
+     }, 3000); // Esperar 1 segundo antes de redirigir a la página de inicio
+ 
+  });
+});
 
 app.listen(port, () => {
   console.log(`Servidor corriendo en http://localhost:${port}`);
